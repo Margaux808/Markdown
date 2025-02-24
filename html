@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Previewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.0.3/marked.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; }
+        #preview { border: 1px solid #ccc; padding: 10px; background: #fff; min-height: 200px; }
+    </style>
+</head>
+<body class="bg-gray-100 p-5">
+    <div id="root" class="container mx-auto max-w-4xl"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        const { useState } = React;
+
+        const defaultMarkdown = `# Titre Principal\n\n## Sous-titre\n\n[Un lien](https://example.com)\n\n\`Code en ligne\`\n\n\n\n\`\`\`\nBloc de code\n\`\`\`\n\n\n- Élément de liste\n\n> Citation\n\n**Texte en gras**\n\n![Image](https://via.placeholder.com/150)`;
+
+        function App() {
+            const [markdown, setMarkdown] = useState(defaultMarkdown);
+
+            return (
+                <div className="p-5 bg-white rounded shadow-md">
+                    <h1 className="text-2xl font-bold text-center mb-4">Markdown Previewer</h1>
+                    <textarea 
+                        id="editor" 
+                        className="w-full p-2 border rounded" 
+                        value={markdown} 
+                        onChange={(e) => setMarkdown(e.target.value)}
+                    ></textarea>
+                    <h2 className="text-xl font-semibold mt-4">Aperçu</h2>
+                    <div id="preview" className="p-2 border rounded bg-gray-50" dangerouslySetInnerHTML={{ __html: marked(markdown) }}></div>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+</body>
+</html>
