@@ -28,13 +28,13 @@
         // Initialiser le texte par défaut dans le textarea
         editor.value = defaultMarkdown;
 
+        // Mettre à jour l'aperçu dès le début avec le texte par défaut
+        preview.innerHTML = marked(defaultMarkdown);
+
         // Mettre à jour l'aperçu chaque fois que l'utilisateur tape
         editor.addEventListener('input', () => {
             preview.innerHTML = marked(editor.value);
         });
-
-        // Initialisation de l'aperçu avec le texte par défaut
-        preview.innerHTML = marked(defaultMarkdown);
     </script>
 </body>
 </html>
